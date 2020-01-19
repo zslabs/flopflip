@@ -56,6 +56,10 @@ const ConfigureAdapter = (props: Props) => {
     [adapterState]
   );
 
+  React.useEffect(() => {
+    pendingAdapterArgs.current = null;
+  }, [appliedAdapterArgs]);
+
   const applyAdapterArgs = React.useCallback((nextAdapterArgs: AdapterArgs) => {
     /**
      * NOTE:
@@ -204,9 +208,9 @@ const ConfigureAdapter = (props: Props) => {
   React.useEffect(() => {
     /**
      * NOTE:
-     *    Be careful here to not double configure from `componentDidMount`.
-     *    Moreover, cDU will also be invoked from `setState` to `appliedAdapterArgs`.
-     *    Hence, avoid calling `setState` within cDU.
+     *   Be careful here to not double configure from `componentDidMount`.
+     *   Moreover, cDU will also be invoked from `setState` to `appliedAdapterArgs`.
+     *   Hence, avoid calling `setState` within cDU.
      */
 
     if (
